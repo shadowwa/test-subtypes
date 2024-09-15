@@ -1,0 +1,46 @@
+name: Tests on vim and neovim
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  lint:
+    name: Lint code with Vint and shellcheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      # There exists a vint github action but it can't install the alpha
+      # version. vint has not been moving since 2020 and we need to use the
+      # alpha release since it fixed some things wrt the latest stable release.
+      - uses: actions/setup-python@v1
+      - name: Install vint
+        run: pip install --pre vim-vint
+      - name: Lint vimscript files
+        run: vint --warning --enable-neovim ./ftdetect ./ftplugin ./syntax
+      - uses: ludeeus/action-shellcheck@master
+
+  tests:
+    runs-on: ubuntu-latest
+    needs: lint
+    strategy:
+      fail-fast: false
+      matrix:
+        editor: ["vim", "nvim"]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup ${{ matrix.editor }}
+        uses: rhysd/action-setup-vim@v1
+        id: vim
+        with:
+          neovim: ${{ matrix.editor == 'nvim' }}
+      - name: Run Vader unit tests
+        run: |
+          TESTVIM=${{ matrix.editor }}
+          export TESTVIM
+          ./test/run-tests.sh

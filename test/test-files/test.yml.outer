@@ -1,0 +1,4 @@
+root:
+  leave1: meuh <% this should be green %>
+  leave2:  '< there should be a warning from ALE on syntastic too many spaces after colon'
+  leave2: '< there should be a warning from ALE on syntastic "duplication of key "leave2"" in mapping or from coc-yaml "Map keys must be unique"'

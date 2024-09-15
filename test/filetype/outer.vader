@@ -2,13 +2,14 @@ Execute (Filetype detection on a new empty file):
   edit foo.outer
   AssertEqual &filetype, 'sh.outer'
 
-#Execute (outer test_with_leading_tag):
-#  edit test/test-files/test_with_leading_tag.outer
-#  AssertEqual &filetype, 'outer'
+# do we want it to match sh.outer as default or just outer?
+Execute (TODO: outer test_with_leading_tag):
+  edit test/test-files/test_with_leading_tag.outer
+  AssertEqual &filetype, 'outer'
 
-#Execute (TODO: outer perl with shebang):
-#  edit test/test-files/test_perl_with_shebang.outer
-#  AssertEqual &filetype, 'perl.outer'
+Execute (TODO: outer perl with shebang):
+  edit test/test-files/test_perl_with_shebang.outer
+  AssertEqual &filetype, 'perl.outer'
 
 # We don't need to parse the shebang for shell since sh is the default subtype
 Execute (outer default to shell):
@@ -31,6 +32,6 @@ Execute (outer php with extension):
   edit test/test-files/test_php_with_extension.php.outer
   AssertEqual &filetype, 'php.outer'
 
-#Execute (TODO: outer apache conf with path and extension):
-#  edit test/test-files/etc/apache2/test.conf.outer
-#  AssertEqual &filetype, 'apache.outer'
+Execute (TODO: outer apache conf with path and extension):
+  edit test/test-files/etc/apache2/test.conf.outer
+  AssertEqual &filetype, 'apache.outer'

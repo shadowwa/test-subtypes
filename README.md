@@ -19,7 +19,7 @@ The detection was modified to only take account file extension.
 
 I'm trying now to:
 
-- [x] get github test run for several versions of (n)vim. OK but neovim below 0.9.0 segfault on github workflows
+- [x] get github test run for several versions of (n)vim. OK
 - [x] just setting the filetype as 'subtype.type' and letting vim loading ftplugins and syntax file for both type
 - [x] setup the extension detection in ftdetect for file not already declared in vim (outer).
 - [ ] setup the extension detection in ftdetect for file already declared in vim (puppet).

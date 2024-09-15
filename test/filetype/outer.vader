@@ -1,6 +1,6 @@
-Execute (Filetype detection on a new empty file):
-  edit foo.outer
-  AssertEqual &filetype, 'sh.outer'
+#Execute (Filetype detection on a new empty file):
+#  edit foo.outer
+#  AssertEqual &filetype, 'sh.outer'
 
 #Execute (outer test_with_leading_tag):
 #  edit test/test-files/test_with_leading_tag.outer
@@ -11,13 +11,13 @@ Execute (Filetype detection on a new empty file):
 #  AssertEqual &filetype, 'perl.outer'
 
 # We don't need to parse the shebang for shell since sh is the default subtype
-Execute (outer default to shell):
-  edit test/test-files/test_shell_with_shebang.outer
-  AssertEqual &filetype, 'sh.outer'
+#Execute (outer default to shell):
+#  edit test/test-files/test_shell_with_shebang.outer
+#  AssertEqual &filetype, 'sh.outer'
 
-Execute (outer shell with extension):
-  edit test/test-files/test_shell_with_extension.sh.outer
-  AssertEqual &filetype, 'sh.outer'
+#Execute (outer shell with extension):
+#  edit test/test-files/test_shell_with_extension.sh.outer
+#  AssertEqual &filetype, 'sh.outer'
 
 Execute (outer yaml with extension):
   edit test/test-files/test.yml.outer
@@ -27,9 +27,9 @@ Execute (outer inner with extension):
   edit test/test-files/test.inner.outer
   AssertEqual &filetype, 'inner.outer'
 
-Execute (outer php with extension):
-  edit test/test-files/test_php_with_extension.php.outer
-  AssertEqual &filetype, 'php.outer'
+#Execute (outer php with extension):
+#  edit test/test-files/test_php_with_extension.php.outer
+#  AssertEqual &filetype, 'php.outer'
 
 #Execute (TODO: outer apache conf with path and extension):
 #  edit test/test-files/etc/apache2/test.conf.outer

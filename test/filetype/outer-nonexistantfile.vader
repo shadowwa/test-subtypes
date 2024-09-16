@@ -1,0 +1,8 @@
+# edit on an non existant file segfault with nvim in ubuntu-22.04LTS container from github workflows
+# and since vader does not have skipif, we put a separated .vader file that will be conditionally
+# erased by github CI
+
+Execute (Filetype detection on a new empty file):
+  edit foo.outer
+  AssertEqual &filetype, 'sh.outer'
+

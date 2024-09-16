@@ -36,7 +36,7 @@ else
     TEST_SUITE=$TEST_FILE
 fi
 
-"${RUNVIM}" -u test/init.vim -c "Vader! ${TEST_SUITE}"
+"${RUNVIM}" -u test/init.vim -c "Vader! ${TEST_SUITE}" > /dev/null
 vader_exit=$?
 [ -n "${VADER_OUTPUT_FILE}" ] && cat "${VADER_OUTPUT_FILE}"
 exit $vader_exit

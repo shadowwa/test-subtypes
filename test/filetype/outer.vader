@@ -2,7 +2,8 @@
 #  edit foo.outer
 #  AssertEqual &filetype, 'sh.outer'
 
-Execute (outer test_with_leading_tag):
+# do we want it to match sh.outer as default or just outer?
+Execute (TODO: outer test_with_leading_tag):
   edit test/test-files/test_with_leading_tag.outer
   AssertEqual &filetype, 'outer'
 

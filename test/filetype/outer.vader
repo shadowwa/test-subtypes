@@ -16,6 +16,25 @@ Execute (outer default to shell):
   edit test/test-files/test_shell_with_shebang.outer
   AssertEqual &filetype, 'sh.outer'
 
+Execute (inner with extension):
+  edit test/test-files/test.inner
+  AssertEqual &filetype, 'inner'
+
+Execute (outer inner with extension):
+  edit test/test-files/test.inner.outer
+  AssertEqual &filetype, 'inner.outer'
+
+Execute (outer inner with double inner extension):
+  edit test/test-files/test.inner.inner.outer
+  AssertEqual &filetype, 'inner.outer'
+
+Execute (outer inner with double outer extension):
+  edit test/test-files/test.inner.outer.outer
+  AssertEqual &filetype, 'inner.outer'
+
+Execute (outer inner with reversed extension):
+  edit test/test-files/test.outer.inner
+  AssertEqual &filetype, 'inner'
 Execute (outer shell with extension):
   edit test/test-files/test_shell_with_extension.sh.outer
   AssertEqual &filetype, 'sh.outer'
@@ -23,10 +42,6 @@ Execute (outer shell with extension):
 Execute (outer yaml with extension):
   edit test/test-files/test.yml.outer
   AssertEqual &filetype, 'yaml.outer'
-
-Execute (outer inner with extension):
-  edit test/test-files/test.inner.outer
-  AssertEqual &filetype, 'inner.outer'
 
 Execute (outer php with extension):
   edit test/test-files/test_php_with_extension.php.outer

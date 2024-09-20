@@ -5,7 +5,7 @@ Execute (Filetype detection on a new empty file):
 # do we want it to match sh.epp as default or just epp?
 Execute (TODO: epuppet test_with_leading_tag):
   edit test/test-files/test_with_leading_tag.epp
-  AssertEqual &filetype, 'epuppet'
+  AssertEqual &filetype, 'sh.epuppet'
 
 Execute (TODO: epuppet perl with shebang):
   edit test/test-files/test_perl_with_shebang.epp

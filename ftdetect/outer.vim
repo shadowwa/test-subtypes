@@ -86,8 +86,12 @@ function! DetectSubOuterNativeType()
             if (exists('g:debug_test_subtype'))
                 echom ' setting to outer'
             endif
-            let &filetype = 'sh.outer'
-            " ?? setf outer
+            if exists('g:outer_default_subtype') && g:outer_default_subtype !=# ''
+                let &filetype = g:outer_default_subtype . '.outer'
+            else
+                let &filetype = 'outer'
+                " test setf outer
+            endif
         endif
     elseif &verbose > 0
         echomsg 'Warning: outer subtype will not be recognized because this version of Vim does not have fnameescape()'

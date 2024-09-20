@@ -3,5 +3,5 @@
 if ($a == 1) {
     # code...
     echo $coin;
-    echo "<%= $meuh %>";
+    echo "[%= $meuh %]";
 }

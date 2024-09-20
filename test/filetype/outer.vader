@@ -5,7 +5,7 @@ Execute (Filetype detection on a new empty file):
 # do we want it to match sh.outer as default or just outer?
 Execute (TODO: outer test_with_leading_tag):
   edit test/test-files/test_with_leading_tag.outer
-  AssertEqual &filetype, 'outer'
+  AssertEqual &filetype, 'sh.outer'
 
 Execute (TODO: outer perl with shebang):
   edit test/test-files/test_perl_with_shebang.outer

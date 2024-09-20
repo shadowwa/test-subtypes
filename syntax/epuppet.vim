@@ -3,7 +3,7 @@ if (exists('g:debug_test_subtype'))
 endif
 
 " since this filetype can be loaded along a subtype, don't test with b:current_syntax
-if (exists('b:current_syntax') && b:current_syntax ==# 'outer')
+if (exists('b:current_syntax') && b:current_syntax ==# 'epuppet')
     if (exists('g:debug_test_subtype'))
         echom "b:current_syntax existing '". b:current_syntax ."', skiping"
     endif
@@ -13,8 +13,8 @@ endif
 if (exists('g:debug_test_subtype'))
     echom 'stack: ' . expand('<stack>')
 endif
-syn region outerBlock start="\[%%\@!-\=" end="[=-]\=%\@<!%\]"
+syn region epuppetBlock start="<%%\@!-\=" end="[=-]\=%\@<!%>"
 
-hi def outerBlock term=standout ctermfg=121 gui=bold guifg=Green
+hi def epuppetBlock term=bold ctermfg=159 guifg=Cyan
 
-let b:current_syntax = 'outer'
+let b:current_syntax = 'epuppet'

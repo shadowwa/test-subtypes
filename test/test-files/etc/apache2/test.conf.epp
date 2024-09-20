@@ -1,5 +1,5 @@
 # conf
 <VirtualHost *:80>
     ServerName example.com
-    ServerName [% $variable %]
+    ServerName <% $variable %>
 </VirtualHost>

@@ -9,8 +9,8 @@ endif
 " finding multiple file extention
 let g:outer_default_subtype = 'sh'
 " TODO maybe add a! if already declared in filetype.vim?
-au BufNewFile,BufRead *.outer call DetectSubExtentionType()
-function! DetectSubExtentionType()
+au BufNewFile,BufRead *.outer call DetectSubOuterExtensionType()
+function! DetectSubOuterExtensionType()
     " TODO barrier for when filetype already detected? happen with nvim 10.1
     "echom "current filetype:" . &filetype
     " TODO find use case of this one
@@ -37,6 +37,8 @@ function! DetectSubExtentionType()
         let b:outer_subtype = 'python'
     elseif b:outer_subtype ==? 'rs'
         let b:outer_subtype = 'rust'
+    elseif b:outer_subtype ==? 'epp'
+        let b:outer_subtype = 'epuppet'
     elseif b:outer_subtype ==? ''
         let b:outer_subtype = g:outer_default_subtype
     endif
@@ -44,8 +46,14 @@ function! DetectSubExtentionType()
     if exists('b:outer_subtype') && b:outer_subtype !=? '' && b:outer_subtype !=? 'outer'
         "exe "setf " . b:outer_subtype . ".outer"
         "exe "setlocal filetype=" . b:outer_subtype . ".outer"
+        if (exists('g:debug_test_subtype'))
+            echom ' setting to ' . b:outer_subtype . '.outer'
+        endif
         let &filetype = b:outer_subtype . '.outer'
     else
+        if (exists('g:debug_test_subtype'))
+            echom ' setting to outer'
+        endif
         setf outer
     endif
     unlet b:outer_subtype

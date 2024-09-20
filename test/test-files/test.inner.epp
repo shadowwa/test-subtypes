@@ -1,0 +1,10 @@
+the next line should be cyan if epp syntax is applied
+<% epp block %>
+the next line should be red if inner syntax is applied
+/* inner */
+
+set filetype=inner
+set filetype=epp
+set filetype=epp.inner
+set filetype=inner.epp
+

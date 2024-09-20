@@ -35,6 +35,11 @@ Execute (outer inner with double outer extension):
 Execute (outer inner with reversed extension):
   edit test/test-files/test.outer.inner
   AssertEqual &filetype, 'inner'
+
+Execute (TODO: outer epuppet inner chained with extension):
+  edit test/test-files/test.inner.epp.outer
+  AssertEqual &filetype, 'inner.epuppet.outer'
+
 Execute (outer shell with extension):
   edit test/test-files/test_shell_with_extension.sh.outer
   AssertEqual &filetype, 'sh.outer'

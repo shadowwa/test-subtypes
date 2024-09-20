@@ -9,7 +9,7 @@ endif
 " finding multiple file extention
 let g:outer_default_subtype = 'sh'
 " TODO maybe add a! if already declared in filetype.vim?
-au BufNewFile,BufRead *.outer call DetectSubOuterExtensionType()
+"au BufNewFile,BufRead *.outer call DetectSubOuterExtensionType()
 function! DetectSubOuterExtensionType()
     " TODO barrier for when filetype already detected? happen with nvim 10.1
     "echom "current filetype:" . &filetype
@@ -67,3 +67,30 @@ endfunction
 "	\ exe "doau filetypedetect BufRead " . fnameescape(expand("<afile>:r"))
 
 " TODO detect removing outer extention and play filetype detect again
+au BufNewFile,BufRead *.outer call DetectSubOuterNativeType()
+function! DetectSubOuterNativeType()
+    if exists('*fnameescape')
+"        echom 'FILETYPE before:' . &filetype
+        execute 'doautocmd filetypedetect BufRead ' .fnameescape(expand('<afile>:r'))
+"        echom 'FILETYPE autodetect by vim:' . &filetype
+        if &filetype =~# 'outer'
+            return
+        endif
+        if &filetype !=# '' && !( &filetype ==# 'mason' && expand('<afile>') !~# 'mason')
+            let b:outer_subtype = &filetype
+            if (exists('g:debug_test_subtype'))
+                echom ' setting to ' . b:outer_subtype . '.outer'
+            endif
+            let &filetype = b:outer_subtype . '.outer'
+        else
+            if (exists('g:debug_test_subtype'))
+                echom ' setting to outer'
+            endif
+            let &filetype = 'sh.outer'
+            " ?? setf outer
+        endif
+    elseif &verbose > 0
+        echomsg 'Warning: outer subtype will not be recognized because this version of Vim does not have fnameescape()'
+        setf outer
+    endif
+endfunction

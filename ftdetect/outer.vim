@@ -8,7 +8,6 @@ endif
 
 " finding multiple file extention
 "let g:outer_default_subtype = 'sh'
-" TODO maybe add a! if already declared in filetype.vim?
 "au BufNewFile,BufRead *.outer call DetectSubOuterExtensionType()
 function! DetectSubOuterExtensionType()
     " TODO barrier for when filetype already detected? happen with nvim 10.1
@@ -66,7 +65,7 @@ endfunction
 "au BufNewFile,BufRead *.outer
 "	\ exe "doau filetypedetect BufRead " . fnameescape(expand("<afile>:r"))
 
-" TODO detect removing outer extention and play filetype detect again
+" detect removing outer extention and play filetype detect again
 au BufNewFile,BufRead *.outer call DetectSubOuterNativeType()
 function! DetectSubOuterNativeType()
     if exists('*fnameescape')

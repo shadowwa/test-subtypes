@@ -19,7 +19,6 @@ Execute (outer test_with_leading_tag and no default subtype):
   new
   bdelete test/test-files/test_with_leading_tag.outer
 
-# need to use new file otherwise the g:outer_default_subtype is keeped from the previous edit
 Execute (Setting default subtype to 'sh'):
   let g:outer_default_subtype = 'sh'
 
@@ -64,7 +63,7 @@ Execute (outer inner with reversed extension):
   edit test/test-files/test.outer.inner
   AssertEqual &filetype, 'inner'
 
-Execute (TODO: outer epuppet inner chained with extension):
+Execute (outer epuppet inner chained with extension):
   edit test/test-files/test.inner.epp.outer
   AssertEqual &filetype, 'inner.epuppet.outer'
 

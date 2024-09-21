@@ -1,13 +1,40 @@
+Execute (Setup default subtype to Undefined):
+  Save g:epuppet_default_subtype
+  if exists('g:epuppet_default_subtype')
+    unlet g:epuppet_default_subtype
+  end
+
+Execute (Filetype detection on a new empty file):
+  edit foo.epp
+  AssertEqual &filetype, 'epuppet'
+  " new is needed before bedelete https://github.com/junegunn/vader.vim/issues/134
+  new
+  " bdelete is needed otherwise g:epuppet_default_subtype is not reseted for the next tests
+  bdelete foo.epp
+
+# do we want it to match sh.epp as default or just epp?
+Execute (epuppet test_with_leading_tag):
+  edit test/test-files/test_with_leading_tag.epp
+  AssertEqual &filetype, 'epuppet'
+  new
+  bdelete test/test-files/test_with_leading_tag.epp
+
+Execute (Setting default subtype to 'sh'):
+  let g:epuppet_default_subtype = 'sh'
+
 Execute (Filetype detection on a new empty file):
   edit foo.epp
   AssertEqual &filetype, 'sh.epuppet'
 
 # do we want it to match sh.epp as default or just epp?
-Execute (TODO: epuppet test_with_leading_tag):
+Execute (epuppet test_with_leading_tag):
   edit test/test-files/test_with_leading_tag.epp
   AssertEqual &filetype, 'sh.epuppet'
 
-Execute (TODO: epuppet perl with shebang):
+Execute (Restore default subtype):
+  Restore g:epuppet_default_subtype
+
+Execute (epuppet perl with shebang):
   edit test/test-files/test_perl_with_shebang.epp
   AssertEqual &filetype, 'perl.epuppet'
 
@@ -36,7 +63,7 @@ Execute (epuppet inner with reversed extension):
   edit test/test-files/test.epp.inner
   AssertEqual &filetype, 'inner'
 
-Execute (TODO: epuppet outer inner chained with extension):
+Execute (epuppet outer inner chained with extension):
   edit test/test-files/test.inner.outer.epp
   AssertEqual &filetype, 'inner.outer.epuppet'
 
@@ -52,6 +79,6 @@ Execute (epuppet php with extension):
   edit test/test-files/test_php_with_extension.php.epp
   AssertEqual &filetype, 'php.epuppet'
 
-Execute (TODO: epuppet apache conf with path and extension):
+Execute (epuppet apache conf with path and extension):
   edit test/test-files/etc/apache2/test.conf.epp
   AssertEqual &filetype, 'apache.epuppet'

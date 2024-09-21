@@ -1,13 +1,13 @@
--- Some outer files may get marked as "mason" type before this script is reached.
+-- Some epuppet files may get marked as "mason" type before this script is reached.
 -- Vim's own scripts.vim forces the type if it detects a `<%` at the start of
--- the file. All files ending in .outer should be outer
+-- the file. All files ending in .epp should be epuppet
 -- nvim older than 0.7.0 vim.filetype is null, and detection fallback to vimscript
 if vim.filetype == nil then
     return nil
 end
 vim.filetype.add({
     extension = {
-        outer =
+        epp =
             function(path, bufnr)
                 -- current test
                 local root = vim.fn.fnamemodify(path, ':r')
@@ -18,17 +18,17 @@ vim.filetype.add({
                     return nil
                 elseif matched ~= 'mason' then
                     if vim.g.debug_test_subtype then
-                        print('LUA matched subtype ' .. matched .. '.outer')
+                        print('LUA matched subtype ' .. matched .. '.epuppet')
                     end
-                    return matched .. '.outer'
+                    return matched .. '.epuppet'
                 end
                 if vim.g.debug_test_subtype then
                     print("LUA did't matched subtype")
                 end
-                if vim.g.outer_default_subtype ~= nil then
-                    return vim.g.outer_default_subtype .. '.outer'
+                if vim.g.epuppet_default_subtype ~= nil then
+                    return vim.g.epuppet_default_subtype .. '.epuppet'
                 else
-                    return 'outer'
+                    return 'epuppet'
                 end
             end,
     }

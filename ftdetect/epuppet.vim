@@ -4,12 +4,11 @@ if (exists('g:debug_test_subtype'))
     echom 'detecting filetype in ' . expand('<sfile>')
 endif
 
-"au BufNewFile,BufRead *.epuppet		setf epuppet
+"au! BufNewFile,BufRead *.epuppet		setf epuppet
 
 " finding multiple file extention
-let g:epuppet_default_subtype = 'sh'
-" TODO maybe add a! if already declared in filetype.vim?
-au BufNewFile,BufRead *.epp call DetectSubEPuppetExtensionType()
+"let g:epuppet_default_subtype = 'sh'
+"au! BufNewFile,BufRead *.epp call DetectSubEPuppetExtensionType()
 function! DetectSubEPuppetExtensionType()
     " TODO barrier for when filetype already detected? happen with nvim 10.1
     "echom "current filetype:" . &filetype
@@ -64,4 +63,36 @@ endfunction
 "au BufNewFile,BufRead *.epuppet
 "	\ exe "doau filetypedetect BufRead " . fnameescape(expand("<afile>:r"))
 
-" TODO detect removing epuppet extention and play filetype detect again
+" detect removing epuppet extention and play filetype detect again
+" au! is needed because epuppet already declared in filetype.vim
+au! BufNewFile,BufRead *.epp call DetectSubepuppetNativeType()
+function! DetectSubepuppetNativeType()
+    if exists('*fnameescape')
+"        echom 'FILETYPE before:' . &filetype
+        execute 'doautocmd filetypedetect BufRead ' .fnameescape(expand('<afile>:r'))
+"        echom 'FILETYPE autodetect by vim:' . &filetype
+        if &filetype =~# 'epuppet'
+            return
+        endif
+        if &filetype !=# '' && !( &filetype ==# 'mason' && expand('<afile>') !~# 'mason')
+            let b:epuppet_subtype = &filetype
+            if (exists('g:debug_test_subtype'))
+                echom ' setting to ' . b:epuppet_subtype . '.epuppet'
+            endif
+            let &filetype = b:epuppet_subtype . '.epuppet'
+        else
+            if (exists('g:debug_test_subtype'))
+                echom ' setting to epuppet'
+            endif
+            if exists('g:epuppet_default_subtype') && g:epuppet_default_subtype !=# ''
+                let &filetype = g:epuppet_default_subtype . '.epuppet'
+            else
+                let &filetype = 'epuppet'
+                " test setf epuppet
+            endif
+        endif
+    elseif &verbose > 0
+        echomsg 'Warning: epuppet subtype will not be recognized because this version of Vim does not have fnameescape()'
+        setf epuppet
+    endif
+endfunction

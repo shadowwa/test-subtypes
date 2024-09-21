@@ -7,7 +7,7 @@ endif
 "au BufNewFile,BufRead *.outer		setf outer
 
 " finding multiple file extention
-let g:outer_default_subtype = 'sh'
+"let g:outer_default_subtype = 'sh'
 " TODO maybe add a! if already declared in filetype.vim?
 "au BufNewFile,BufRead *.outer call DetectSubOuterExtensionType()
 function! DetectSubOuterExtensionType()

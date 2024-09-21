@@ -1,13 +1,41 @@
-Execute (Filetype detection on a new empty file):
+Execute (Setup default subtype to Undefined):
+  Save g:outer_default_subtype
+  if exists('g:outer_default_subtype')
+    unlet g:outer_default_subtype
+  end
+
+Execute (Filetype detection on a new empty file and no default subtype):
+  edit foo.outer
+  AssertEqual &filetype, 'outer'
+  " new is needed before bedelete https://github.com/junegunn/vader.vim/issues/134
+  new
+  " bdelete is needed otherwise g:outer_default_subtype is not reseted for the next tests
+  bdelete foo.outer
+
+# do we want it to match sh.outer as default or just outer?
+Execute (outer test_with_leading_tag and no default subtype):
+  edit test/test-files/test_with_leading_tag.outer
+  AssertEqual &filetype, 'outer'
+  new
+  bdelete test/test-files/test_with_leading_tag.outer
+
+# need to use new file otherwise the g:outer_default_subtype is keeped from the previous edit
+Execute (Setting default subtype to 'sh'):
+  let g:outer_default_subtype = 'sh'
+
+Execute (Filetype detection on a new empty file with default subtype set to 'sh'):
   edit foo.outer
   AssertEqual &filetype, 'sh.outer'
 
 # do we want it to match sh.outer as default or just outer?
-Execute (TODO: outer test_with_leading_tag):
+Execute (outer test_with_leading_tag with defaut subtype set to 'sh'):
   edit test/test-files/test_with_leading_tag.outer
   AssertEqual &filetype, 'sh.outer'
 
-Execute (TODO: outer perl with shebang):
+Execute (Restore default subtype):
+  Restore g:outer_default_subtype
+
+Execute (outer perl with shebang):
   edit test/test-files/test_perl_with_shebang.outer
   AssertEqual &filetype, 'perl.outer'
 
@@ -52,6 +80,6 @@ Execute (outer php with extension):
   edit test/test-files/test_php_with_extension.php.outer
   AssertEqual &filetype, 'php.outer'
 
-Execute (TODO: outer apache conf with path and extension):
+Execute (outer apache conf with path and extension):
   edit test/test-files/etc/apache2/test.conf.outer
   AssertEqual &filetype, 'apache.outer'
